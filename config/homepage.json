@@ -1,79 +1,117 @@
 {
-  "Main": {
-    "name": {
-      "type": "StructuredText",
-      "config": {
-        "single": "heading1, heading2, heading3, heading4, heading5, heading6",
-        "label": "Name",
-        "placeholder": "Name"
+  "Main" : {
+    "page_title" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading1",
+        "label" : "Page Title",
+        "placeholder" : "Enter page title"
       }
     },
-    "description": {
-      "type": "StructuredText",
-      "config": {
-        "multi": "paragraph",
-        "label": "description",
-        "placeholder": "Enter description here",
-        "labels": ["grey"]
+    "page_subtitle" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+        "label" : "Page Subtitle",
+        "placeholder" : "Enter subtitle"
       }
     },
-    "body": {
-      "type": "Slices",
-      "fieldset": "Slice zone",
-      "config": {
-        "choices": {
-          "section": {
-            "type": "Slice",
-            "fieldset": "Section",
-            "description": "Section",
-            "icon": "face",
-            "display": "list",
-            "non-repeat": {
-              "title": {
-                "type": "StructuredText",
-                "config": {
-                  "single": "heading2",
-                  "label": "Title",
-                  "placeholder": "Title of the section"
+    "body" : {
+      "type" : "Slices",
+      "fieldset" : "Slice zone",
+      "config" : {
+        "choices" : {
+          "image" : {
+            "type" : "Slice",
+            "fieldset" : "Image",
+            "description" : "Team picture here",
+            "icon" : "face",
+            "display" : "list",
+            "non-repeat" : {
+              "picture" : {
+                "type" : "Image",
+                "config" : {
+                  "constraint" : { },
+                  "thumbnails" : [ ],
+                  "label" : "Picture"
                 }
               }
             },
-            "repeat": {
-              "content": {
-                "type": "StructuredText",
-                "config": {
-                  "multi": "paragraph, hyperlink, list-item",
-                  "allowTargetBlank": true,
-                  "label": "Content",
-                  "labels": ["grey", "headline"]
-                }
-              }
-            }
+            "repeat" : { }
           },
-          "skills": {
-            "type": "Slice",
-            "fieldset": "Skills",
-            "description": "Skills",
-            "icon": "face",
-            "display": "list",
-            "non-repeat": {
-              "title": {
-                "type": "StructuredText",
-                "config": {
-                  "single": "heading2",
-                  "label": "Title",
-                  "placeholder": "Title of skills section"
+          "info" : {
+            "type" : "Slice",
+            "fieldset" : "Info",
+            "description" : "More info about Prismic",
+            "icon" : "face",
+            "display" : "grid",
+            "non-repeat" : {
+              "headline" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Headline",
+                  "placeholder" : "Enter slice headline here"
+                }
+              },
+              "description" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Description",
+                  "placeholder" : "Enter slice text here"
+                }
+              },
+              "picture" : {
+                "type" : "Image",
+                "config" : {
+                  "constraint" : { },
+                  "thumbnails" : [ ],
+                  "label" : "Picture"
                 }
               }
             },
-            "repeat": {
-              "content": {
-                "type": "StructuredText",
-                "config": {
-                  "multi": "paragraph, hyperlink, list-item",
-                  "allowTargetBlank": true,
-                  "label": "Content",
-                  "labels": ["grey", "headline"]
+            "repeat" : { }
+          },
+          "facts" : {
+            "type" : "Slice",
+            "fieldset" : "Facts",
+            "description" : "Facts about Prismic",
+            "icon" : "face",
+            "display" : "grid",
+            "non-repeat" : {
+              "headline" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Headline",
+                  "placeholder" : "Enter slice headline here"
+                }
+              },
+              "description" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Description",
+                  "placeholder" : "Enter slice text here"
+                }
+              }
+            },
+            "repeat" : {
+              "number" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Number",
+                  "placeholder" : "Enter numerical fact here"
+                }
+              },
+              "description" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Description",
+                  "placeholder" : "Enter slice text here"
                 }
               }
             }
