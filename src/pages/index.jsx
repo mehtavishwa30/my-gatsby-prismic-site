@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 import { graphql } from 'gatsby'
 import { Parser } from 'html-to-react'
-import React from 'react'
+import React, { Component } from 'react'
 import Layout from '../components/Layout'
 
 const container = css`
@@ -16,26 +16,66 @@ const container = css`
     text-transform: uppercase;
     margin-bottom: 2rem;
   }
+  h2 {
+    margin-top: 4rem;
+    font-size: 12px;
+    font-weight: 600;
+    color: #c9cccf;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
 `
 
 const htmlToReactParser = new Parser()
 
 export default props => {
   const { data } = props
+  console.log(data)
   const content = data.prismicHomepage.data
   const page_title = content.page_title.text
   const page_subtitle = content.page_subtitle.html
 
   const slices = content.body.map(slice => {
-    const headline = slice.primary.headline.html
-    const picture = slice.primary.picture.url
-    const description = slice.primary.description.html
-    const items = slice.items.map(item => {
-      htmlToReactParser.parse(item.description.html)
-      htmlToReactParser.parse(item.number.html)
-    })
+    if (slice.slice_type === 'Image')
+    { 
+      const picture = slice.primary.picture.url
+      return (
+        <div className="Image">
+          <div>{picture}</div>
+        </div>
+      )
+    }
+    if (slice.slice_type === 'Info')
+    {
+      const headline = htmlToReactParser.parse(slice.primary.headline.html)
+      const picture = slice.primary.picture.url
+      const description = htmlToReactParser.parse(slice.primary.description.html)
+      eturn (
+        <div className="Info">
+          <h1>{headline}</h1>
+          <h2>{picture}</h2>
+          <div>{description}</div>
+        </div>
+      )
+    }
+    if (slice.slice_type === 'Facts')
+    {
+      const headline = htmlToReactParser.parse(slice.primary.headline.html)
+      const description = htmlToReactParser.parse(slice.primary.description.html)
+      const items = slice.items.map(item => {
+        htmlToReactParser.parse(item.number.html)
+        htmlToReactParser.parse(item.description.html)
+      })
+      return (
+        <div className="Facts">
+          <h1>{headline}</h1>
+          <h2>{description}</h2>
+          <div>{items}</div>
+        </div>
+      )
+    }
 
-    if (slice.slice_type === 'Image') {
+    /*if (slice.slice_type === 'Image') {
       return (
         <div className="Image">
           <div>{picture}</div>
@@ -45,32 +85,33 @@ export default props => {
     if (slice.slice_type === 'Info') {
       return (
         <div className="Info">
-          <h1>{htmlToReactParser.parse(headline)}</h1>
+          <h1>{headline}</h1>
           <h2>{picture}</h2>
-          <div>{htmlToReactParser.parse(description)}</div>
+          <div>{description}</div>
         </div>
       )
     }
     if (slice.slice_type === 'Facts') {
       return (
         <div className="Facts">
-          <h1>{htmlToReactParser.parse(headline)}</h1>
-          <h2>{htmlToReactParser.parse(description)}</h2>
+          <h1>{headline}</h1>
+          <h2>{description}</h2>
           <div>{items}</div>
         </div>
       )
-    }
+    }*/
   })
 
-  return (
+return (
     <Layout>
       <div css={container}>
         <h1>{page_title}</h1>
-        {htmlToReactParser.parse(page_subtitle)}
+        <h2>{htmlToReactParser.parse(page_subtitle)}</h2>
+        <div>{slices}</div>
       </div>
     </Layout>
   )
-}
+} 
 
 export const pageQuery = graphql`
   query {
