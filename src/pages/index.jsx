@@ -32,74 +32,53 @@ export default props => {
   const { data } = props
   console.log(data)
   const content = data.prismicHomepage.data
+  // const npicture = content.body[0].primary.picture.url
   const page_title = content.page_title.text
   const page_subtitle = content.page_subtitle.html
 
-  const slices = content.body.map(slice => {
-    if (slice.slice_type === 'Image')
+  const slices = content.body.map( function (slice, index) {
+    if (slice.slice_type === 'image')
     { 
       const picture = slice.primary.picture.url
       return (
-        <div className="Image">
-          <div>{picture}</div>
+        <div className="image">
+          <img src={picture}></img>
         </div>
       )
     }
-    if (slice.slice_type === 'Info')
+    if (slice.slice_type === 'info')
     {
       const headline = htmlToReactParser.parse(slice.primary.headline.html)
       const picture = slice.primary.picture.url
       const description = htmlToReactParser.parse(slice.primary.description.html)
-      eturn (
-        <div className="Info">
+      return (
+        <div className="info">
           <h1>{headline}</h1>
-          <h2>{picture}</h2>
+          <img src={picture}></img>
           <div>{description}</div>
         </div>
       )
     }
-    if (slice.slice_type === 'Facts')
+    if (slice.slice_type === 'facts')
     {
       const headline = htmlToReactParser.parse(slice.primary.headline.html)
       const description = htmlToReactParser.parse(slice.primary.description.html)
-      const items = slice.items.map(item => {
-        htmlToReactParser.parse(item.number.html)
-        htmlToReactParser.parse(item.description.html)
+      const items = slice.items.map(function (item, itemIndex) {
+        return(
+          <div key={itemIndex}>
+        {htmlToReactParser.parse(item.number.html)}
+        {htmlToReactParser.parse(item.description.html)}
+        </div>
+          )
       })
       return (
-        <div className="Facts">
+        <div className="facts" key={index}>
           <h1>{headline}</h1>
           <h2>{description}</h2>
           <div>{items}</div>
         </div>
       )
     }
-
-    /*if (slice.slice_type === 'Image') {
-      return (
-        <div className="Image">
-          <div>{picture}</div>
-        </div>
-      )
-    }
-    if (slice.slice_type === 'Info') {
-      return (
-        <div className="Info">
-          <h1>{headline}</h1>
-          <h2>{picture}</h2>
-          <div>{description}</div>
-        </div>
-      )
-    }
-    if (slice.slice_type === 'Facts') {
-      return (
-        <div className="Facts">
-          <h1>{headline}</h1>
-          <h2>{description}</h2>
-          <div>{items}</div>
-        </div>
-      )
-    }*/
   })
 
 return (
@@ -107,6 +86,7 @@ return (
       <div css={container}>
         <h1>{page_title}</h1>
         <h2>{htmlToReactParser.parse(page_subtitle)}</h2>
+        
         <div>{slices}</div>
       </div>
     </Layout>
@@ -116,61 +96,57 @@ return (
 export const pageQuery = graphql`
   query {
     prismicHomepage {
-      data {
-        page_title {
-          text
-        }
-        page_subtitle {
-          html
-        }
-        body {
-          ... on PrismicHomepageBodyImage {
-            slice_type
-            primary {
-              picture {
-                url
-              }
+    data {
+      body {
+        ... on PrismicHomepageBodyFacts {
+          slice_type
+          primary {
+            headline {
+              html
+            }
+            description {
+              html
+            }
+          }
+          items{
+            number {
+              html
+            }
+            description {
+              html
             }
           }
         }
-        body {
-          ... on PrismicHomepageBodyInfo {
-            slice_type
-            primary {
-              headline {
-                html
-              }
-              picture {
-                url
-              }
-              description {
-                html
-              }
+        ... on PrismicHomepageBodyImage {
+          slice_type
+          primary {
+            picture {
+              url
             }
           }
         }
-        body {
-          ... on PrismicHomepageBodyFacts {
-            slice_type
-            primary {
-              headline {
-                html
-              }
-              description {
-                html
-              }
+        ... on PrismicHomepageBodyInfo {
+          slice_type
+          primary {
+            description {
+              html
             }
-            items {
-              number {
-                html
-              }
-              description {
-                html
-              }
+            headline {
+              html
+            }
+            picture {
+              url
             }
           }
         }
       }
+      page_subtitle {
+        html
+      }
+      page_title {
+        text
+      }
     }
+  }
   }
 `
