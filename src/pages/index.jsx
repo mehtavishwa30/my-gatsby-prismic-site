@@ -10,9 +10,8 @@ body{
   margin:0;
   font-family: -apple-system,BlinkMacSystemFont,sans-serif;
 }
-.container{
-  margin:60px;
-  max-width:100%;
+.text-center{
+  text-align:center;
 }
 
   h1 {
@@ -27,12 +26,14 @@ body{
     text-align:center;
   }
   h3{
+    margin-top: -10px;
 		font-weight: 100;
 		font-size: 18px;
     color: #3f4955;
     text-align:center;
 	}
 	h4{
+      text-align: centre;
     	font-weight: 400;
     	font-size: 22px;
     	line-height: 34px;
@@ -47,7 +48,12 @@ body{
       font-size: 14px;
       text-align:center;
   }
-  .image-cover, .image-info{
+  .image-cover{
+    max-width: 90%;
+    margin: 0 auto;
+    display: flex;
+  }
+  .image-info{
 		max-width: 100%;
 	}
 	.image-info{
@@ -61,7 +67,9 @@ body{
 	}
 	.info{
 		margin: 80px 0;
-		display: flex;
+    display: flex;
+    margin:60px;
+    max-width:100%;
 	}
 	.info-left{
 	    border-left: 4px solid #dce0e6;
@@ -87,14 +95,15 @@ body{
 		padding: 60px;
 		max-width:100%;
 		background: #f9f9fb;
-    height: 275px;
+    height: 380px;
     text-align:center;
 	}
 	.fact-box{
 		text-align: center;
 	    display: inline-flex;
-	    margin-top: 45px;
-	    max-width: 80%;
+      margin-top: 45px;
+      margin-bottom: 60px;
+	    max-width: 90%;
 	}
 	.fact-items{
 	    display: inline-block;
@@ -104,7 +113,11 @@ body{
 	    color: #3f4955;
 	    box-shadow: 0px 0px 5px #dcdcdc;
 	    padding: 25px;
-	}
+  }
+  .items-pic{
+    width:70px;
+    margin: 20px 0px -10px 0px;
+  }
 `
 
 const htmlToReactParser = new Parser()
@@ -123,9 +136,7 @@ export default props => {
     { 
       const picture = slice.primary.picture.url
       return (
-        <div className="image">
-          <img class="image-cover" src={picture}></img>
-        </div>
+      <img className="Image" class="image-cover" src={picture}></img>
       )
     }
     if (slice.slice_type === 'info')
@@ -135,18 +146,18 @@ export default props => {
       const description = htmlToReactParser.parse(slice.primary.description.html)
       const desc = htmlToReactParser.parse(slice.primary.desc.html)
       return (
-        <div className="info">
+        <div className="info" class="info">
 			<div class="block-6">
 				<div class="info-left">
 					{headline}
 				</div>
 				<div class="info-detail">
-					<p class="text-bold">{description}</p>
-					<p>{desc}</p>
+					<b>{description}</b>
+					{desc}
 				</div>
 			</div>
 			<div class="block-6">
-      <img src={picture}></img>
+      <img class="image-info" src={picture}></img>
 			</div>
 		</div>
       )
@@ -158,15 +169,16 @@ export default props => {
       const items = slice.items.map(function (item, itemIndex) {
         return(
           <div key={itemIndex} class="fact-items">
+          <img class="items-pic" src={item.picture.url}></img>
             <h1>{htmlToReactParser.parse(item.number.html)}</h1>
-            <p><b>{htmlToReactParser.parse(item.description.html)}</b>{htmlToReactParser.parse(item.desc.html)}</p>
+            <b>{htmlToReactParser.parse(item.description.html)}</b>{htmlToReactParser.parse(item.desc.html)}
           </div>
           )
       })
       return (
         <div className="facts" key={index} class="facts">
-          <h2>{headline}</h2>
-          <h3>{description}</h3>
+          {headline}
+          {description}
            <div class="fact-box">{items}</div>
         </div>
       )
@@ -175,11 +187,15 @@ export default props => {
 
 return (
     <Layout>
-      <div css={container} class="container">
-        <h1>{page_title}</h1>
-        <h2>{htmlToReactParser.parse(page_subtitle)}</h2>
-        <h6>{htmlToReactParser.parse(page_note)}</h6>
-        <div>{slices}</div>
+      <div css={container}>
+      <div class="container">
+        <div class="text-center">
+          <h1>{page_title}</h1>
+          {htmlToReactParser.parse(page_subtitle)}
+          <h6>{htmlToReactParser.parse(page_note)}</h6>
+        </div>
+      </div>
+      {slices}
       </div>
     </Layout>
   )
@@ -201,6 +217,9 @@ export const pageQuery = graphql`
             }
           }
           items{
+            picture{
+              url
+            }
             number {
               html
             }
@@ -251,3 +270,4 @@ export const pageQuery = graphql`
   }
   }
 `
+
