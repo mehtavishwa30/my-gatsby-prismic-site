@@ -4,16 +4,21 @@
       "type" : "StructuredText",
       "config" : {
         "single" : "heading1",
-        "label" : "Page Title",
-        "placeholder" : "Enter page title"
+        "label" : "Page Title"
       }
     },
     "page_subtitle" : {
       "type" : "StructuredText",
       "config" : {
-        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-        "label" : "Page Subtitle",
-        "placeholder" : "Enter subtitle"
+        "multi" : "heading4",
+        "label" : "Page Subtitle"
+      }
+    },
+    "page_note" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "em",
+        "label" : "Page Note"
       }
     },
     "body" : {
@@ -24,7 +29,7 @@
           "image" : {
             "type" : "Slice",
             "fieldset" : "Image",
-            "description" : "Team picture here",
+            "description" : "Image",
             "icon" : "face",
             "display" : "list",
             "non-repeat" : {
@@ -42,24 +47,29 @@
           "info" : {
             "type" : "Slice",
             "fieldset" : "Info",
-            "description" : "More info about Prismic",
+            "description" : "Info",
             "icon" : "face",
-            "display" : "grid",
+            "display" : "list",
             "non-repeat" : {
               "headline" : {
                 "type" : "StructuredText",
                 "config" : {
-                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-                  "label" : "Headline",
-                  "placeholder" : "Enter slice headline here"
+                  "multi" : "paragraph",
+                  "label" : "Headline"
                 }
               },
               "description" : {
                 "type" : "StructuredText",
                 "config" : {
-                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-                  "label" : "Description",
-                  "placeholder" : "Enter slice text here"
+                  "multi" : "paragraph",
+                  "label" : "Description"
+                }
+              },
+              "desc" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph",
+                  "label" : "Desc"
                 }
               },
               "picture" : {
@@ -76,42 +86,53 @@
           "facts" : {
             "type" : "Slice",
             "fieldset" : "Facts",
-            "description" : "Facts about Prismic",
+            "description" : "Facts",
             "icon" : "face",
             "display" : "grid",
             "non-repeat" : {
               "headline" : {
                 "type" : "StructuredText",
                 "config" : {
-                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-                  "label" : "Headline",
-                  "placeholder" : "Enter slice headline here"
+                  "multi" : "heading2",
+                  "label" : "Headline"
                 }
               },
               "description" : {
                 "type" : "StructuredText",
                 "config" : {
-                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-                  "label" : "Description",
-                  "placeholder" : "Enter slice text here"
+                  "multi" : "heading3",
+                  "label" : "Description"
                 }
               }
             },
             "repeat" : {
+              "picture" : {
+                "type" : "Image",
+                "config" : {
+                  "constraint" : { },
+                  "thumbnails" : [ ],
+                  "label" : "Picture"
+                }
+              },
               "number" : {
                 "type" : "StructuredText",
                 "config" : {
-                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-                  "label" : "Number",
-                  "placeholder" : "Enter numerical fact here"
+                  "multi" : "heading1",
+                  "label" : "Number"
                 }
               },
               "description" : {
                 "type" : "StructuredText",
                 "config" : {
-                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-                  "label" : "Description",
-                  "placeholder" : "Enter slice text here"
+                  "multi" : "strong",
+                  "label" : "Description"
+                }
+              },
+              "desc" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph",
+                  "label" : "Desc"
                 }
               }
             }
